@@ -7,7 +7,7 @@
     "compilerOptions": {
         "module": "es6",
         "rootDir": "src/ts",
-        "outDir": "src/js",
+        "outDir": "build/js",
         "target": "es6"
     }
 }
