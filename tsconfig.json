@@ -5,6 +5,8 @@
     "exclude": [
     ],
     "compilerOptions": {
+        "noImplicitAny": true,
+        "strictNullChecks": true,
         "module": "es6",
         "rootDir": "src/ts",
         "outDir": "build/js",
