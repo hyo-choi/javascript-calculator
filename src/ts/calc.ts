@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-const calculate = (str: string) => {
+const calculate = (str: string): number => {
   const first: string = /^-?0*[0-9]{1,3}/.exec(str)!.toString();
   const operator: string = str[first.length]!;
   const last: string = str.slice(first.length + 1)!;
