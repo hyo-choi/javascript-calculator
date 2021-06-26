@@ -10,10 +10,11 @@ const onDigitsClicked = (e: MouseEvent) => {
       || !$target.classList.contains('digit')) {
     return;
   }
-  if (/^-?0*[0-9]{0,2}$/.test($total.innerText)
-    || /^-?0*[0-9]{1,3}[-+/X]-?0*[0-9]{0,2}$/.test($total.innerText)) {
+  if (/(^-?[0-9]{0,2}$)|(^-?[0-9]{1,3}[-+/X]-?[0-9]{0,2}$)/.test($total.innerText)) {
     if ($total.innerText === '0') {
       $total.innerText = digit;
+    } else if (/[-+/X]-?0$/.test($total.innerText)) {
+      $total.innerText = $total.innerText.slice(0, -1) + digit;
     } else {
       $total.innerText += digit;
     }
@@ -35,12 +36,17 @@ const onOperationsClicked = (e: MouseEvent) => {
   if ($total.classList.contains('error') || !$target.classList.contains('operation')) {
     return;
   }
-  if (operator === '=' && !/[1-9]{4}/.test($total.innerText)) {
-    $total.innerText = String(calculate($total.innerText));
+  if (operator === '=') {
+    if (/^-?[0-9]{1,3}[-+/X]-?[0-9]{1,3}$/.test($total.innerText)) {
+      // calculate when expression is valid
+      $total.innerText = String(calculate($total.innerText));
+    }
     return;
   }
-  if (!/^-?0*[0-9]{1,3}$/.test($total.innerText)) {
-    if (operator === '-' && /^-?0*[0-9]{1,3}[-+X/]$/.test($total.innerText)) {
+  if (!/^-?[0-9]{1,3}$/.test($total.innerText)) {
+    // if a number has not been entered || an operator already exists
+    if (operator === '-' && /^-?[0-9]{1,3}[-+X/]$/.test($total.innerText)) {
+      // if an operator exists => only put minus sign
       $total.innerText += operator;
     }
     return;
