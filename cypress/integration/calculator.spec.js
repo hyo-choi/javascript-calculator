@@ -3,7 +3,7 @@ describe('Calculator', () => {
   const clickButtons = (str) => {
     const values = str.split('');
     values.forEach((value) => {
-      cy.get('button').contains(value).click().get('#app');
+      cy.get('button').contains(value).click();
     });
   };
 
